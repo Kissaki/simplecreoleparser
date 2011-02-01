@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="de">
+  <meta charset="utf-8" />
+  <script type="text/javascript" src="creoleparser.js"></script>
+  <script type="text/javascript">
+  function $(id) {
+    return document.getElementById(id);
+  } 
+  window.onload = function() {
+    var cPre = $('src');
+    var target = $('target');
+    var creole = new Parse.Simple.Creole( {
+      forIE: document.all,
+      interwiki: {
+        WikiCreole: 'http://www.wikicreole.org/wiki/',
+        Wikipedia: 'http://en.wikipedia.org/wiki/'
+      },
+      linkFormat: ''
+    } );
+    creole.parse(target, cPre.innerHTML);
+    cPre.style.display = 'none';
+  }
+  </script>
+</head>
+<body>
+<div id="nav">
+  <a href="#src" onclick="$('src').style.display = 'block';$('target').style.display = 'none';">src</a> <a href="#target" onclick="$('src').style.display = 'none';$('target').style.display = 'block';">target</a>
+</div>
+<div id="src">
+= Simple Creole Parser =
+A simple javascript creole-syntax parser producing HTML.
+
+[[http://www.wikicreole.org/wiki/CheatSheet|Creole CheatSheet]]
+
+== Usage ==
+{{{<code>
+var options = {};
+var creole = new Parse.Simple.Creole();
+var src = document.getElementById('src');
+var target = document.getElementById('target');
+creole.parse(target, src.innerHTML);
+</code>}}}
+=== Options ===
+*strict (boolean):
+*(?)defaultImageText (?)
+*(?)isPlainUri (?)
+*forIE (?): (document.all is valid)
+*interwiki (array key->value name->baseurl):
+Example:{{{
+  <code>interwiki: {
+    WikiCreole: 'http://www.wikicreole.org/wiki/',
+    Wikipedia: 'http://en.wikipedia.org/wiki/'
+  }</code>
+}}}
+*linkFormat (string):  (?)
+
+== Misc ==
+Initial code from [[http://www.ivan.fomichev.name/2008/04/javascript-creole-10-wiki-markup-parser.html|Ivan Fomichev]]
+</div>
+<div id="target"></div>
+</body>
+</html>
